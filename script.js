@@ -18,20 +18,24 @@ function getCity() {
 }
 
 const getCurrentWeather = async () => {
-    const currentWeatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${weatherStorage.name}&appid=${API_KEY}&units=metric`);
+    const currentWeatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${weatherStorage.city}&appid=${API_KEY}&units=metric`);
     const currentWeather = await currentWeatherResponse.json();
     
-    weatherStorage = {
-        temp: currentWeather.main.temp
-    };
-
-    pushElems();
+    try {
+        weatherStorage = {
+            temp: currentWeather.main.temp
+        };
+        pushElems();
+    } catch {
+        console.log('Что-то пошло не так');
+    }
 };
 
 function pushElems() {
     const parentBlock = document.querySelector('.data');
     const currentTemp = document.createElement('div');
     currentTemp.classList.add('current__temp');
+    currentTemp.innerText = `${weatherStorage.temp}`;
     parentBlock.append(currentTemp);
 }
 
