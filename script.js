@@ -7,14 +7,32 @@ let weatherStorage = {
     city: 'Moscow'
 };
 
-function getCity() {
+function searchCity() {
     const inputCity = document.querySelector('.city__input');
     const submitCity = document.querySelector('.get-weather');
-    
+
     submitCity.addEventListener('click', () => {
+    const currentTemp = document.querySelector('.current__temp');
+        if(currentTemp) {
+            currentTemp.remove();
+        }
         weatherStorage.city = inputCity.value;
         getCurrentWeather();
+        inputCity.value = '';
     });
+
+    inputCity.onkeydown = (e) => {
+        const currentTemp = document.querySelector('.current__temp');
+        if(currentTemp) {
+            currentTemp.remove();
+        }
+        if(e.keyCode === 13) {
+            e.preventDefault();
+            weatherStorage.city = inputCity.value;
+            getCurrentWeather();
+            inputCity.value = '';
+        }
+    };
 }
 
 const getCurrentWeather = async () => {
@@ -35,9 +53,13 @@ function pushElems() {
     const parentBlock = document.querySelector('.data');
     const currentTemp = document.createElement('div');
     currentTemp.classList.add('current__temp');
-    currentTemp.innerText = `${weatherStorage.temp}`;
+    currentTemp.innerHTML = `
+        <h3>Температура сейчас</h3>
+    <div class="current__temp-index">${weatherStorage.temp}</div>;
+    `;
     parentBlock.append(currentTemp);
 }
 
-getCity();
+searchCity();
+
 

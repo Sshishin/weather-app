@@ -1,7 +1,23 @@
+/* @import url(./fonts/fonts.css); */
+
+@font-face {
+    font-family: 'Inter-Regular';
+    src: url(./fonts/Inter-Regular.woff);
+}
+
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    font-family: 'Inter-Regular';
+
 }
 
 .data {
@@ -13,10 +29,49 @@
 
 .get-weather {
     max-width: 50%;
-    height: 30px;
+    height: 50px;
+    box-shadow: 0px 2px 5px 0px rgb(179, 179, 179);
+    border: none;
+    background-color: white;
+    font-family: 'Inter-Regular';
+    font-size: 16px;
+}
+
+.get-weather:hover {
+    box-shadow: 0px 2px 5px 0px rgb(110, 110, 110);
 }
 
 .city__input {
     width: 500px;
     height: 35px;
+    font-size: 24px;
+    padding: 10px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 2px 5px 0px rgb(179, 179, 179);
+    appearance: none;
+    box-sizing: unset;
+}
+
+.city__input:focus {
+    box-shadow: 0px 2px 5px 0px rgb(110, 110, 110);
+
+}
+
+.current__temp {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px 0;
+    box-shadow: 0px 2px 5px 0px rgb(179, 179, 179);
+    min-height: 200px;
+    background-color: white;
+    font-family: 'Inter-Regular';
+
+}
+
+.current__temp-index {
+    font-size: 28px;
 }
