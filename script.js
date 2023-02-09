@@ -4,7 +4,9 @@ const API_KEY = '6c19a7621696a924de1a6c588331987a';
 
 let weatherStorage = {
     temp: 0,
-    city: 'Moscow'
+    city: 'Moscow',
+    weather: 'Sunny',
+    wind: 0
 };
 
 function searchCity() {
@@ -38,10 +40,12 @@ function searchCity() {
 const getCurrentWeather = async () => {
     const currentWeatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${weatherStorage.city}&appid=${API_KEY}&units=metric`);
     const currentWeather = await currentWeatherResponse.json();
-    
+    console.log(currentWeather)
     try {
         weatherStorage = {
-            temp: currentWeather.main.temp
+            temp: currentWeather.main.temp,
+            weather: currentWeather.weather[0].main,
+            wind: currentWeather.wind.speed
         };
         pushElems();
     } catch {
@@ -54,10 +58,21 @@ function pushElems() {
     const currentTemp = document.createElement('div');
     currentTemp.classList.add('current__temp');
     currentTemp.innerHTML = `
-        <h3>Температура сейчас</h3>
-    <div class="current__temp-index">${weatherStorage.temp}</div>;
+        <div class="current__temp-weather">${weatherStorage.weather}</div>
+        <div class="current__temp-index">${Math.round(weatherStorage.temp) + ' °C'}</div>
+        <div class="current__temp-item">${Math.round(weatherStorage.wind)+' м/с'}</div>
     `;
     parentBlock.append(currentTemp);
+    addImg();
+}
+
+function addImg() {
+    const currentTemp = document.querySelector('.current__temp-weather');
+    if(currentTemp.textContent == 'Clouds') {
+        currentTemp.innerHTML = `
+        <img class="cloud__img" src="./img/cloud.png" alt="cloud">
+        `;
+    }
 }
 
 searchCity();
